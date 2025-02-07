@@ -1,6 +1,7 @@
 import mysql.connector
 from pathlib import os
 from dotenv import load_dotenv
+from product import Product
 
 load_dotenv()
 
@@ -24,13 +25,15 @@ def getAllProducts():
   products = mycursor.fetchall()
 
   for product in products:
-    print(product)
+    produto = Product(product[1], product[2], product[3])
+    print(produto)
 
 # GET BY ID
 def getProduct(index):
   mycursor.execute(f"SELECT * FROM products WHERE id = {index}")
   myresult = mycursor.fetchone()
-  print(myresult)
+  produto = Product(myresult[1], myresult[2], myresult[3])
+  print(produto)
 
 # CREATE PRODUCT
 def createProduct():
@@ -119,8 +122,3 @@ while option != 0:
 
 mydb.close()
 cursor.close()
-
-# def crudDeProdutos(produto):
-#   print(produto)
-
-# crudDeProdutos("Arroz")
